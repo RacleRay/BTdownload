@@ -1,0 +1,8 @@
+/home/racle/CProjects/BTdownload/BTdownload/build/CMakeFiles/edit_cache.dir
+/home/racle/CProjects/BTdownload/BTdownload/build/CMakeFiles/rebuild_cache.dir
+/home/racle/CProjects/BTdownload/BTdownload/build/src/CMakeFiles/edit_cache.dir
+/home/racle/CProjects/BTdownload/BTdownload/build/src/CMakeFiles/rebuild_cache.dir
+/home/racle/CProjects/BTdownload/BTdownload/build/test/CMakeFiles/edit_cache.dir
+/home/racle/CProjects/BTdownload/BTdownload/build/test/CMakeFiles/rebuild_cache.dir
+/home/racle/CProjects/BTdownload/BTdownload/build/example/CMakeFiles/edit_cache.dir
+/home/racle/CProjects/BTdownload/BTdownload/build/example/CMakeFiles/rebuild_cache.dir
