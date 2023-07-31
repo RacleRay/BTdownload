@@ -25,7 +25,7 @@ typedef struct _Announce_list {
 typedef struct _Files {
     char path[256];
     long length;
-    struct _File *next;
+    struct _Files *next;
 } Files;
 
 // 读取种子文件
