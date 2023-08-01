@@ -5,12 +5,6 @@
     > Created Time:
  ************************************************************************/
 
-#include <stdio.h>
-#include <ctype.h>
-#include <malloc.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include "../include/parse_metafile.h"
 #include "../include/sha1.h"
 

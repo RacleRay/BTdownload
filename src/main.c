@@ -7,7 +7,6 @@
 #include "../include/parse_metafile.h"
 #include "../include/log.h"
 
-// #define  DEBUG
 
 int main(int argc, char *argv[])
 {
