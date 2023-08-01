@@ -78,7 +78,7 @@ int read_metafile(char *metafile_name) {
 }
 
 /**
- * @brief 从种子文件中查找某个关键字
+ * @brief 从种子文件中查找某个关键字，例如找到关键字 "8:announce" 等
  *
  * @param keyword  关键字
  * @param position 返回关键字第一个字符所在的下标
@@ -90,6 +90,7 @@ int find_keyword(char *keyword, long *position) {
     *position = -1;
     if (keyword == NULL) return 0;
 
+    // metafile_content: from read_metafile
     for (i = 0; i < filesize - strlen(keyword); i++) {
         if (memcmp(&metafile_content[i], keyword, strlen(keyword)) == 0) {
             *position = i;
@@ -103,6 +104,15 @@ int find_keyword(char *keyword, long *position) {
 /**
  * @brief
  * 获取Tracker地址，并将获取的地址保存到全局变量announce_list_head指向的链表中
+ *
+ * example:
+ *  d8:announce32:http://tk.greedland.net/announce13:announce-listll32:http://
+ * tk.greedland.net/announceel33:http://tk2.greedland.net/announceee...
+ * 
+ * d -- B编码的字典起始符
+ * 8:announce  --  值为 32:http://tk.greedland.net/announce Tracker服务器URL
+ * 13:announce-listl -- l 结尾，值是一个列表，每一个元素以 l 开头
+ * e -- 为多元素结构的结束标记
  *
  * @return int 成功执行返回0，执行失败返回-1
  */
@@ -122,6 +132,7 @@ int read_announce_list() {
             i++; // 跳过 ':'
 
             node = (Announce_list *)malloc(sizeof(Announce_list));
+            // NOTE: the secury of len copy is NOT guaranteed.
             strncpy(node->announce, &metafile_content[i], len);
             node->announce[len] = '\0';
             node->next = NULL;
@@ -140,7 +151,7 @@ int read_announce_list() {
             else
                 return -1;
 
-            // 只处理以http开头的tracker地址,不处理以udp开头的地址
+            // 只处理以http开头的tracker地址, 不处理以udp开头的地址
             if (memcmp(&metafile_content[i], "http", 4) == 0) {
                 node = (Announce_list *)malloc(sizeof(Announce_list));
                 strncpy(node->announce, &metafile_content[i], len);
@@ -149,15 +160,16 @@ int read_announce_list() {
 
                 if (announce_list_head == NULL) announce_list_head = node;
                 else {
+                    // node 插入链表尾节点
                     p = announce_list_head;
-                    while (p->next != NULL) p = p->next; // 使p指向最后个结点
-                    p->next = node; // node成为tracker列表的最后一个结点
+                    while (p->next != NULL) p = p->next;
+                    p->next = node;
                 }
             }
 
             i = i + len;
             len = 0;
-            i++; // skip 'e'
+            i++;  // skip 'e'
             if (i >= filesize) return -1;
         }
     }
@@ -205,7 +217,7 @@ int add_an_announce(char *url) {
 }
 
 /**
- * @brief 判断是下载多个文件还是单文件
+ * @brief 判断是下载多个文件还是单文件，保存到 multi_file 全局变量
  *        若含有关键字“5:files”则说明下载的是多个文件
  *
  * @return int 是多文件返回1，单文件返回0
@@ -226,8 +238,11 @@ int is_multi_files() {
 }
 
 /**
- * @brief 获取piece的长度
+ * @brief 获取piece的长度，保存到全局变量 piece_length
  *
+ * e.g.
+ *  12:piece lengthi262144e6:pieces16900:... 
+ * 
  * @return int 成功返回0，读取失败返回-1
  */
 int get_piece_length() {
@@ -235,7 +250,7 @@ int get_piece_length() {
 
     if (find_keyword("12:piece length", &i) == 1) {
         i = i + strlen("12:piece length"); // skip "12:piece length"
-        i++;                               // skip 'i'
+        i++;                                  // skip 'i'  integer
         while (metafile_content[i] != 'e') {
             piece_length = piece_length * 10 + (metafile_content[i] - '0');
             i++;
@@ -304,7 +319,7 @@ int get_file_name() {
     }
 
 #ifdef DEBUG
-    // 由于可能含有中文字符,因此可能打印出乱码
+    // 可能含有中文字符,因此可能打印出乱码
     // printf("file_name:%s\n",file_name);
 #endif
 
