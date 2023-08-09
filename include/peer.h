@@ -51,6 +51,10 @@ typedef struct _Peer {
     int msg_len;        // 缓冲区out_msg的长度
     char *out_msg_copy; // out_msg的副本,发送时使用该缓冲区
     int msg_copy_len;   // 缓冲区out_msg_copy的长度
+    /*
+     * out_msg_copy缓冲区的大小是18KB，而send函数一次最多发送1500字节，
+     * 因此要使用msg_copy_index记录下次应该发送的数据的起始下标。
+     */
     int msg_copy_index; // 下一次要发送的数据的偏移量
 
     Request_piece *Request_piece_head;   // 向peer请求数据的队列

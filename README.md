@@ -63,6 +63,50 @@ Peer间文件传输，将 piece 划分为 16KB 大小的 slice 进行传输。
 
 ![image-20230731150153177](images/README/image-20230731150153177.png)
 
+
+
+#### 消息处理
+
+Peer连接状态转换：
+
+<img src="images/README/image-20230805154143229.png" alt="image-20230805154143229" style="zoom:50%;" />
+
+Peer通信下载逻辑：
+
+<img src="images/README/wps1.png" alt="img1" style="zoom:80%;" />
+
+Peer通信上传逻辑：
+
+<img src="images/README/wps2.png" alt="img2" style="zoom:80%;" />
+
+当am_interested = 1，peer_choking = 0时，也就是客户端对peer感兴趣，而且peer没有将客户端阻塞，发送request消息请求peer发送数据，peer接收到请求后发送piece消息。
+
+当peer_interested = 1，am_choking = 0时也就是peer对客户端感兴趣，且客户端没有将该peer阻塞。如果peer发送request消息请求数据，则客户端应该构造并发送piece消息。
+
+“发送unchoke/chock消息” 的时机是执行选择非阻塞peer算法时，选中该peer作为非阻塞peer或者选中该peer作为优化非阻塞peer。
+
+“发送have消息，拥有了peer没有的piece” 的具体情况是：当己方刚刚下载到一个piece，此时通过发送have消息告知所有peer客户端已拥有了某个piece，如果peer没有这个piece且原先peer对本客户端不感兴趣，则发送have消息后，该peer就对该客户端感兴趣了。
+
+
+
+#### 缓冲区设计
+
+缓冲管理模块维护一个大小为16MB的缓冲区（大小可调整）。每个缓冲区结点的大小为16KB，默认生成1024个结点，总大小为16MB。缓冲区以一个piece（通常为256KB）为基本单位，也就是临近的16个结点为一组，这16个临近的结点要么全部被使用，要么全部空闲。为了方便处理，所有缓冲区在程序启动时统一申请，在程序结束时一起被释放。
+
+缓冲管理模块将下载到的数据先保存在缓冲区中，在达到一定的数值时再将数据写入硬盘的文件中。
+
+peer请求数据时，先在缓冲区中寻找，若缓冲区中不存在所请求的数据，则从硬盘读文件并把请求数据所在的piece预先读入到缓冲区中。
+
+设置缓冲区可以避免频繁读写硬盘，从而有利于保护硬盘。
+
+除了管理缓冲区，本模块还负责：
+
+- 创建待下载的文件
+- 把下载到的piece写入文件
+- 在peer请求数据时读取文件
+
+
+
 ## 算法策略
 
 ### 流水线作业

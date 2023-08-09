@@ -6,6 +6,7 @@
 #include "../include/bitfield.h"
 #include "../include/parse_metafile.h"
 #include "../include/log.h"
+#include "../include/signal_handler.h"
 
 
 void test_bitmap() {
@@ -41,6 +42,8 @@ int main(int argc, char *argv[])
 
     test_bitmap();
 
+
+    // do_clear_work();
 
 	return 0;
 }

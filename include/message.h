@@ -8,7 +8,20 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
+#include <stdio.h>
+#include <string.h>
+#include <malloc.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include <sys/socket.h>
 #include "peer.h"
+#include "parse_metafile.h"
+#include "bitfield.h"
+#include "peer.h"
+#include "data.h"
+#include "policy.h"
 
 
 int int_to_char(int i, unsigned char c[4]);  // 将整型变量i的四个字节存放到数组c中
@@ -19,7 +32,7 @@ int create_handshake_msg(char *info_hash,char *peer_id,Peer *peer);
 int create_keep_alive_msg(Peer *peer);
 int create_chock_interested_msg(int type,Peer *peer);
 int create_have_msg(int index,Peer *peer);
-int create_bitfield_msg(char *bitfield,int bitfield_len,Peer *peer);
+int create_bitfield_msg(unsigned char *bitfield,int bitfield_len,Peer *peer);
 int create_request_msg(int index,int begin,int length,Peer *peer);
 int create_piece_msg(int index,int begin,char *block,int b_len,Peer *peer);
 int create_cancel_msg(int index,int begin,int length,Peer *peer);

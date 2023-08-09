@@ -8,11 +8,24 @@
 #ifndef _DATA_H
 #define _DATA_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <malloc.h>
+#include "sha1.h"
+#include "parse_metafile.h"
+#include "bitfield.h"
+#include "policy.h"
+#include "torrent.h"
 #include "peer.h"
 
 // 每个Btcache结点维护一个长度为16KB的缓冲区,该缓冲区保存一个slice的数据
 typedef struct _Btcache {
-    unsigned char *buff; // 指向缓冲区的指针
+    char *buff; // 指向缓冲区的指针
     int index;           // 数据所在的piece块的索引
     int begin;           // 数据在piece块中的起始位置
     int length;          // 数据的长度
@@ -28,12 +41,17 @@ typedef struct _Btcache {
     struct _Btcache *next;
 } Btcache;
 
-Btcache *initialize_btcache_node(); // 为Btcache结点分配内存空间并进行初始化
-int create_btcache(); // 创建总大小为16K*1024即16MB的缓冲区
-void release_memory_in_btcache(); // 释放data.c中动态分配的内存
+// 为Btcache结点分配内存空间并进行初始化
+Btcache *initialize_btcache_node(); 
+// 创建总大小为16K*1024即16MB的缓冲区
+int create_btcache(); 
+// 释放data.c中动态分配的内存
+void release_memory_in_btcache(); 
 
-int get_files_count(); // 获取种子文件中待下载的文件个数
-int create_files(); // 根据种子文件中的信息创建保存下载数据的文件
+// 获取种子文件中待下载的文件个数
+int get_files_count(); 
+// 根据种子文件中的信息创建保存下载数据的文件
+int create_files(); 
 
 // 判断一个Btcache结点中的数据要写到哪个文件的哪个位置,并写入
 int write_btcache_node_to_harddisk(Btcache *node);
