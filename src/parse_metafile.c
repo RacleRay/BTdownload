@@ -21,7 +21,7 @@ long long file_length = 0; // 存放待下载文件的总长度
 Files *files_head = NULL;  // 只对多文件种子有效,存放各个文件的路径和长度
 
 unsigned char info_hash[20]; // 保存info_hash的值,连接tracker和peer时使用
-unsigned char peer_id[20];   // 保存peer_id的值,连接peer时使用
+char peer_id[22];   // 保存peer_id的值,连接peer时使用
 
 Announce_list *announce_list_head = NULL; // 用于保存所有tracker服务器的URL
 

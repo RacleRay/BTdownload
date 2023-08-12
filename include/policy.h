@@ -17,8 +17,8 @@
 // 4. 判断是否下载完毕：根据位图作出判断，下载完毕即终止程序
 
 #define COMPUTE_RATE_TIME 10 // 每隔10秒计算一次各个peer的上传下载速度
-#define UNCHOKE_COUNT     4 // 存储下载速度最快的4个peer的指针
-#define REQ_SLICE_NUM     5 // 每次请求的slice数
+#define UNCHOKE_COUNT     4  // 存储下载速度最快的4个peer的指针
+#define REQ_SLICE_NUM     5  // 每次请求的slice数
 
 typedef struct _Unchoke_peers {
     Peer *unchkpeer[UNCHOKE_COUNT];
@@ -26,7 +26,7 @@ typedef struct _Unchoke_peers {
     Peer *optunchkpeer;
 } Unchoke_peers;
 
-void init_unchoke_peers();    // 初始化全局变量unchoke_peers
+void init_unchoke_peers(); // 初始化全局变量unchoke_peers
 
 int select_unchoke_peer();    // 选择unchoke peer
 int select_optunchoke_peer(); // 从peer队列中选择一个优化非阻塞peer
@@ -38,5 +38,7 @@ int is_seed(Peer *node); // 判断某个peer是否为种子
 
 // 构造数据请求,为了提高效率一次请求5个slice
 int create_req_slice_msg(Peer *node);
+
+// int create_req_slice_msg_from_btcache(Peer *node);
 
 #endif
