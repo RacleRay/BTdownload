@@ -1,1 +1,67 @@
-[]
+[
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/bitfield.c -o src/bitfield.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/bitfield.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/bterror.c -o src/bterror.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/bterror.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/data.c -o src/data.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/data.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/log.c -o src/log.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/log.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/main.c -o src/main.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/main.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/message.c -o src/message.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/message.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/parse_metafile.c -o src/parse_metafile.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/parse_metafile.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/peer.c -o src/peer.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/peer.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/policy.c -o src/policy.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/policy.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/sha1.c -o src/sha1.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/sha1.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/signal_handler.c -o src/signal_handler.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/signal_handler.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/torrent.c -o src/torrent.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/torrent.c"
+    },
+    {
+        "command": "gcc -Iinclude -Wall -g -c src/tracker.c -o src/tracker.o ",
+        "directory": "/home/racle/CProjects/BTdownload",
+        "file": "/home/racle/CProjects/BTdownload/src/tracker.c"
+    }
+]

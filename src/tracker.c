@@ -260,6 +260,7 @@ int prepare_connect_tracker(int *max_sockfd) {
         char tracker_name[128];
         unsigned short tracker_port = 0;
 
+        // TCP connection
         sock[i] = socket(AF_INET, SOCK_STREAM, 0);
         if (sock < 0) {
             printf("%s:%d socket create failed\n", __FILE__, __LINE__);
